@@ -12,7 +12,7 @@ class riak($riak_ring = "", $riakhost = $fqdn) {
 		"${package_location}":
 			ensure => present,
 			mode => 660,
-			source => "puppet:///riak/${package_filename}"
+			source => "puppet:///modules/riak/${package_filename}"
 	}
 
 	package {
