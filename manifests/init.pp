@@ -1,5 +1,5 @@
 class riak {
-	$package_filename = "riak_0.14.2-1_${architecture}.deb"
+	$package_filename = "riak_1.1.2-1_amd64.deb"
 	$package_location = "/opt/packages/${package_filename}"
 
 	file {
@@ -15,11 +15,16 @@ class riak {
 	}
 
 	package {
+	    "libssl0.9.8":
+	        ensure => installed,
+	}
+
+	package {
 		"riak":
 			provider => "dpkg",
 			ensure => latest,
 			source => $package_location,
-			require => File[$package_location],
+			require => [ File[$package_location], Package["libssl0.9.8"] ],
 	}
 
 	service {
