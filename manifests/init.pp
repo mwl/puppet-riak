@@ -1,4 +1,4 @@
-class riak($riakhost = $fqdn) {
+class riak($riak_ring = "", $riakhost = $fqdn) {
 	$package_filename = "riak_1.1.2-1_amd64.deb"
 	$package_location = "/opt/packages/${package_filename}"
 	$nodename = "riak@${riakhost}"
@@ -52,6 +52,12 @@ class riak($riakhost = $fqdn) {
 			content => template('riak/vm.args.erb'),
 			require => Package["riak"],
 			notify => Service["riak"],
+	}
+
+	exec {
+	    "/usr/sbin/riak-admin join ${riak_ring}":
+	    onlyif => ["test -n \"${riak_ring}\"", "test `sudo /usr/sbin/riak-admin status | grep ^ring_members | grep ${riak_ring} | wc -l` -eq 0"],
+	    require => Service["riak"]
 	}
 }
 
