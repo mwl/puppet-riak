@@ -39,7 +39,16 @@ class riak {
 		"/etc/riak/app.config":
 			ensure => present,
 			mode => 644,
-			source => "puppet:///riak/app.config",
+			content => template('riak/app.config.erb'),
+			require => Package["riak"],
+			notify => Service["riak"],
+	}
+
+	file {
+		"/etc/riak/vm.args":
+			ensure => present,
+			mode => 644,
+			content => template('riak/vm.args.erb'),
 			require => Package["riak"],
 			notify => Service["riak"],
 	}
