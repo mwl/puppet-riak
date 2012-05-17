@@ -1,12 +1,7 @@
-class riak($riak_ring = "", $riakhost = $fqdn) {
+class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default") {
 	$package_filename = "riak_1.1.2-1_amd64.deb"
-	$package_location = "/opt/packages/${package_filename}"
+	$package_location = "/tmp/${package_filename}"
 	$nodename = "riak@${riakhost}"
-
-	file {
-		"/opt/packages":
-			ensure => directory,
-	}
 
 	file {
 		"${package_location}":
