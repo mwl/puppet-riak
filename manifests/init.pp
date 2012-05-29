@@ -51,7 +51,11 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default") {
 
 	exec {
 	    "/usr/sbin/riak-admin join ${riak_ring}":
-	    onlyif => ["test -n \"${riak_ring}\"", "test `sudo /usr/sbin/riak-admin status | grep ^ring_members | grep ${riak_ring} | wc -l` -eq 0"],
+	    onlyif => [
+	        "test -n \"${riak_ring}\"",
+	        "test \"${node_name}\" != \"${riak_ring}\"",
+	        "test `sudo /usr/sbin/riak-admin status | grep ^ring_members | grep ${riak_ring} | wc -l` -eq 0"
+	        ],
 	    require => Service["riak"]
 	}
 }
