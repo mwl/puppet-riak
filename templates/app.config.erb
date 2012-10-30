@@ -48,7 +48,7 @@
             %% Storage_backend specifies the Erlang module defining the storage
             %% mechanism that will be used on this node.
             <% if backend_profile == "cs" then %>
-            {add_paths, ["/usr/lib64/riak-cs/lib/riak_moss-1.0.1/ebin"]},
+            {add_paths, ["/usr/lib/riak-cs/lib/riak_moss-1.1.0/ebin"]},
                   {storage_backend, riak_cs_kv_multi_backend},
                   {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
                   {multi_backend_default, be_default},
