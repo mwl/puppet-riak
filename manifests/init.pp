@@ -50,7 +50,7 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default") {
 	}
 
 	exec {
-	    "/usr/sbin/riak-admin join ${riak_ring}":
+	    "/usr/sbin/riak-admin join -f ${riak_ring}":
 	    onlyif => [
 	        "test -n \"${riak_ring}\"",
 	        "test \"${nodename}\" != \"${riak_ring}\"",
