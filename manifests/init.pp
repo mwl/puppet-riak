@@ -20,7 +20,7 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default") {
 			provider => "dpkg",
 			ensure => latest,
 			source => $package_location,
-			require => [ File[$package_location], Package["libssl0.9.8"] ],
+			require => [ File[$package_location], Package["libssl0.9.8"] ]
 	}
 
 	service {
