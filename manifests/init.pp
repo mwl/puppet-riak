@@ -1,4 +1,4 @@
-class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default", $vmargs_pa = "", vmargs_s = "") {
+class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default", $vmargs_pa = "", $vmargs_s = "") {
 	$package_filename = "riak_1.3.0-1_amd64.deb"
 	$package_location = "/tmp/${package_filename}"
 	$nodename = "riak@${riakhost}"
