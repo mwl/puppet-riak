@@ -9,6 +9,12 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default", $vm
 			mode => 660,
 			source => "puppet:///modules/riak/${package_filename}"
 	}
+  
+    file {"/etc/default/riak":
+        ensure => present,
+        content => "ulimit -n 4096 ",
+        notify => Service["riak"]
+    }
 
 	package {
 	    "libssl0.9.8":
@@ -26,7 +32,7 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backend_profile = "default", $vm
 	service {
 		"riak":
 			ensure => running,
-			require => Package["riak"],
+			require => [Package["riak"], File["/etc/default/riak"]],
 			hasrestart => true,
 			hasstatus => true,
 	}
