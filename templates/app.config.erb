@@ -51,14 +51,14 @@
             {storage_backend, <%=backends.first['backend']%>},
             {multi_backend_default, <<"<%=backends.first['name']%>">>},
             {multi_backend, [
-                <% backends.each do |backend| %> {
+                <% backends.each do |backend| %>{
                     <<"<%=backend['name']%>">>,
                     <%=backend['backend'] %>,
                     [<%if backend['params'] %>
-                        <% backend['params'].each do |key, value| %> { <%=key%>, <%=value%> },
+                        <% backend['params'].each do |key, value| %> { <%=key%>, <%=value%> }<%=',' if backend['params'].keys.last != key%>
                         <% end %>
                     <% end %>]
-                },
+                }<%=',' if backends.last != backend%>
                 <% end %>
             ]},
 
