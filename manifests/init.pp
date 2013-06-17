@@ -57,7 +57,8 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backends = [], $datadir = '/var/
 
 	file {"$datadir":
 	    ensure => directory,
-	    owner => riak
+	    owner => "riak",
+	    require => Package["riak"]
 	}
 
 	exec {
