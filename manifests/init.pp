@@ -1,4 +1,4 @@
-class riak($riak_ring = "", $riakhost = $fqdn, $backends = [], $vmargs_pa = "", $vmargs_s = "") {
+class riak($riak_ring = "", $riakhost = $fqdn, $backends = [], $datadir = '/var/lib/riak', $vmargs_pa = "", $vmargs_s = "") {
 	$package_filename = "riak_1.3.0-1_amd64.deb"
 	$package_location = "/tmp/${package_filename}"
 	$nodename = "riak@${riakhost}"
@@ -32,7 +32,7 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backends = [], $vmargs_pa = "", 
 	service {
 		"riak":
 			ensure => running,
-			require => [Package["riak"], File["/etc/default/riak"]],
+			require => [Package["riak"], File["/etc/default/riak"], File["$datadir"]],
 			hasrestart => true,
 			hasstatus => true,
 	}
@@ -53,6 +53,11 @@ class riak($riak_ring = "", $riakhost = $fqdn, $backends = [], $vmargs_pa = "", 
 			content => template('riak/vm.args.erb'),
 			require => Package["riak"],
 			notify => Service["riak"],
+	}
+
+	file {"$datadir":
+	    ensure => directory,
+	    owner => riak
 	}
 
 	exec {

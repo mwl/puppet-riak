@@ -4,7 +4,7 @@
  %% Riak Core config
  {riak_core, [
               %% Default location of ringstate
-              {ring_state_dir, "/var/lib/riak/ring"},
+              {ring_state_dir, "<%=datadir%>/ring"},
 
               %% http is a list of IP addresses and TCP ports that the Riak
               %% HTTP interface will bind.
@@ -37,7 +37,7 @@
 
               %% Platform-specific installation paths (substituted by rebar)
               {platform_bin_dir, "/usr/sbin"},
-              {platform_data_dir, "/var/lib/riak"},
+              {platform_data_dir, "<%=datadir%>"},
               {platform_etc_dir, "/etc/riak"},
               {platform_lib_dir, "/usr/lib/riak"},
               {platform_log_dir, "/var/log/riak"}
@@ -181,10 +181,10 @@
  %% Merge Index Config
  {merge_index, [
                 %% The root dir to store search merge_index data
-                {data_root, "/var/lib/riak/merge_index"},
+                {data_root, "<%=datadir%>/merge_index"},
 
                 %% The root dir to store secondary index merge_index data
-                {data_root_2i, "/var/lib/riak/merge_index_2i"},
+                {data_root_2i, "<%=datadir%>/merge_index_2i"},
 
                 %% Size, in bytes, of the in-memory buffer.  When this
                 %% threshold has been reached the data is transformed
@@ -200,12 +200,12 @@
 
  %% Bitcask Config
  {bitcask, [
-             {data_root, "/var/lib/riak/bitcask"}
+             {data_root, "<%=datadir%>/bitcask"}
            ]},
 
  %% eLevelDB Config
  {eleveldb, [
-             {data_root, "/var/lib/riak/leveldb"}
+             {data_root, "<%=datadir%>/leveldb"}
             ]},
 
  %% Lager Config
